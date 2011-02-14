@@ -15,14 +15,22 @@ end
 
 post "/" do
   halt [412, {}, "Missing 'url' param."] unless url = params[:url]
-  url = "http://#{url}" unless /^http/i =~ url
+  url  = "http://#{url}" unless /^http/i =~ url
+  life = params[:life].to_i if params[:life]
 
   unless short = $redis.get("long:#{url}")
-    short = $redis.incr(:counter).to_sxg
+    longkey  = "long:#{url}"
+    short    = $redis.incr(:counter).to_sxg
+    shortkey = "short:#{short}"
 
     $redis.multi do
-      $redis.set "long:#{url}", short
-      $redis.set "short:#{short}", url
+      $redis.set longkey,  short
+      $redis.set shortkey, url
+    end
+
+    if life
+      $redis.expire longkey,  life
+      $redis.expire shortkey, life
     end
   end
 

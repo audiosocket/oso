@@ -29,6 +29,9 @@ we mostly use Oso inside other apps. To shorten a URL, `POST` to `/`
 with a `url` parameter. It'll return a `201` with the shortened URL in
 the body.
 
+You can optionally pass a `life` parameter, which is the lifetime of
+the shortened URL in seconds.
+
 ## License
 
 Copyright 2011 Leopona Inc.
