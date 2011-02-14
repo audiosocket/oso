@@ -22,6 +22,13 @@ Oso is prepped for Heroku. It has an up-to-date `.gems` manifest, and
 it'll use the `REDISTOGO_URL` env var if it exists. You're on your own
 in any other environment, but it's going to be easy.
 
+## Using
+
+There's a static HTML index that'll let you shorten URLs by hand, but
+we mostly use Oso inside other apps. To shorten a URL, `POST` to `/`
+with a `url` parameter. It'll return a `201` with the shortened URL in
+the body.
+
 ## License
 
 Copyright 2011 Leopona Inc.
