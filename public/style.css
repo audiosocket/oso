@@ -1,0 +1,41 @@
+* {
+    font-size : 16px;
+    margin    : 0;
+    padding   : 0;
+}
+
+body {
+    font-family : "Helvetica Neue", sans-serif;
+    width       : 600px;
+    margin      : 36px auto;
+}
+
+h1 {
+    font-size: 36px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+}
+
+.boxen li {
+    background      : #666;
+    border-radius   : 8px;
+    color           : #aaa;
+    float           : left;
+    font-size       : 13px;
+    list-style-type : none;
+    margin-left     : 18px;
+    padding         : 12px;
+    text-align      : center;
+    width           : 164px;
+}
+
+.boxen li span {
+    font-size: 24px;
+    display: block;
+    color: #eee;
+}
+
+.boxen li:first-child {
+    margin-left: 0;
+}

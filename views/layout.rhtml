@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Oso<%= ": #@title" if @title %></title>
+    <link href="/style.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <% if @title %>
+    <h1>Oso: <%= @title %></h1>
+    <% end %>
+
+    <%= yield %>
+
+    <script type="text/javascript"
+            src="http://code.jquery.com/jquery-1.5.min.js"></script>
+  </body>
+</html>

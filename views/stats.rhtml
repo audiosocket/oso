@@ -1,0 +1,16 @@
+<ul class="boxen">
+    <li>
+      <span><%= $redis.get(:counter) || 0 %></span>
+      URLs
+    </li>
+
+    <li>
+      <span><%= $redis.get(:hits) || 0 %></span>
+      Hits
+    </li>
+
+    <li>
+      <span><%= $redis.get(:misses) || 0 %></span>
+      Misses
+    </li>
+</ul>

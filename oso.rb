@@ -13,6 +13,11 @@ get "/" do
   IO.read "public/index.html"
 end
 
+get "/stats" do
+  @title = "Statistics"
+  erb :stats
+end
+
 post "/" do
   halt [412, {}, "Missing 'url' param."] unless url = params[:url]
   url  = "http://#{url}" unless /^http/i =~ url
