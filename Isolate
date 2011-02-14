@@ -1,0 +1,5 @@
+gem "isolate-heroku",  "1.1"
+gem "new_base_60",     "1.0.3"
+gem "rack",            "1.2.1"
+gem "redis-namespace", "0.10.0"
+gem "sinatra",         "1.1.2"
