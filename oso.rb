@@ -42,6 +42,11 @@ get "/:short" do |short|
   long = $redis.get "short:#{short}"
   halt $redis.incr(:misses) && [404, {}, "No luck."] unless long
 
-  $redis.incr :hits
+  $redis.multi do
+    $redis.incr :hits
+    $redis.incr "short:#{short}:hits"
+    $redis.set  "short:#{short}:last", Time.now.utc.to_i
+  end
+
   redirect long
 end
