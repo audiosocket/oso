@@ -2,13 +2,16 @@
 
 <html>
   <head>
-    <title>Oso<%= ": #@title" if @title %></title>
+    <title>Oso<%= " :: #@title" if @title %></title>
     <link href="/style.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
     <% if @title %>
-    <h1>Oso: <%= @title %></h1>
+    <h1>
+      Oso :: <%= @title %>
+      <a class="button" href="/">home</a>
+    </h1>
     <% end %>
 
     <%= yield %>

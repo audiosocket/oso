@@ -14,7 +14,7 @@ get "/" do
 end
 
 get "/stats" do
-  @title = "Statistics"
+  @title = "Stats"
   erb :stats
 end
 
