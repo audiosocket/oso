@@ -1,16 +1,63 @@
 <ul class="boxen">
     <li>
-      <span class="num"><%= $redis.get(:counter) || 0 %></span>
+      <span class="num"><%= @count %></span>
       urls
     </li>
 
     <li>
-      <span class="num"><%= $redis.get(:hits) || 0 %></span>
+      <span class="num"><%= @hits %></span>
       hits
     </li>
 
     <li>
-      <span class="num"><%= $redis.get(:misses) || 0 %></span>
+      <span class="num"><%= @misses %></span>
       misses
     </li>
 </ul>
+
+<% if @count > 0 %>
+<h2>Recent Hits</h2>
+
+<table cellspacing="0">
+  <thead>
+    <tr>
+      <th>Last Hit</th>
+      <th>URL</th>
+      <th>Shortened</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bytimes.each do |short, data| %>
+    <tr>
+      <td><%= data[:score] %></td>
+      <td><a href="<%= data[:long] %>"><%= data[:long] %></a></td>
+      <td><a href="<%= shorturl(short) %>"><%= shorturl(short) %></a></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Most Hits</h2>
+
+<table cellspacing="0">
+  <thead>
+    <tr>
+      <th>Hits</th>
+      <th>URL</th>
+      <th>Shortened</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @byhits.each do |short, data| %>
+    <tr>
+      <td><%= data[:score] %></td>
+      <td><a href="<%= data[:long] %>"><%= data[:long] %></a></td>
+      <td><a href="<%= shorturl(short) %>"><%= shorturl(short) %></a></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>

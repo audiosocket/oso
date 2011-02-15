@@ -8,23 +8,24 @@ a {
     color: #a00;
 }
 
-a.button {
+a.btn {
     -webkit-transition : .2s;
     background         : #ddd;
     border-radius      : 4px;
     color              : #333;
     display            : block;
     font-size          : 14px;
+    font-weight        : normal;
     padding            : 4px 6px;
     text-decoration    : none;
 }
 
-a.button:hover {
+a.btn:hover {
     background : #333;
     color      : #eee;
 }
 
-a.button:active {
+a.btn:active {
     color: #f00;
 }
 
@@ -46,7 +47,27 @@ h1 a {
     bottom      : 16px;
     position    : absolute;
     right       : 0;
-    font-weight : normal;
+}
+
+h2 {
+    clear         : left;
+    font-size     : 24px;
+    margin-bottom : 18px;
+    padding-top   : 36px;
+    position      : relative;
+}
+
+table {
+    width: 100%;
+}
+
+thead th {
+    border-bottom : 1px solid #ccc;
+    text-align    : left;
+}
+
+td, th {
+    padding: 3px;
 }
 
 .boxen li {

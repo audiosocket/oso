@@ -1,0 +1,63 @@
+= Oso
+
+* http://github.com/audiosocket/oso
+
+== Description
+
+Audiosocket's minimal URL shortener. It's named "oso" because those
+three letters look a bit like our logo.
+
+== Configuring
+
+We deploy 1.9.2, so Oso expects it. It shouldn't be too hard to port
+to 1.8 if you feel the need.
+
+If you install the deps in the <tt>Isolate</tt> file you can run
+<tt>rackup</tt> by itself. If you'd like to use Isolate to manage
+deps, <tt>gem install isolate</tt> and run <tt>rake rackup</tt>
+instead (it'll call <tt>rackup</tt> from inside the isolated
+environment).
+
+Oso needs Redis. Set the <tt>OSO_REDIS_URL</tt> environment variable,
+which defaults to <tt>redis://localhost:6379</tt>. All keys are
+namespaced under <tt>oso:</tt>.
+
+== Using
+
+There's a static HTML index that'll let you shorten URLs by hand, but
+we mostly use Oso inside other apps. To shorten a URL, <tt>POST</tt>
+to <tt>/</tt> with a <tt>url</tt> parameter. It'll return a
+<tt>201</tt> with the shortened URL in the body.
+
+You can optionally pass a <tt>life</tt> parameter, which is the
+lifetime of the shortened URL in seconds.
+
+== Deploying
+
+Oso is prepped for Heroku. It has an up-to-date <tt>.gems</tt>
+manifest, and it'll use the <tt>REDISTOGO_URL</tt> env var if it
+exists. You're on your own in any other environment, but it's going to
+be easy.
+
+== License
+
+Copyright 2011 Leopona Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

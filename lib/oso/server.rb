@@ -9,11 +9,28 @@ url = URI.parse url || "redis://localhost:6379"
 $redis = Redis::Namespace.new :oso,
   redis: Redis.new(host: url.host, password: url.password, port: url.port)
 
+helpers do
+  def shorturl short
+    request.path_info = "/#{short}"
+    request.url
+  end
+end
+
 get "/" do
   IO.read "public/index.html"
 end
 
 get "/stats" do
+  @count   = $redis.get(:counter).to_i
+  @hits    = $redis.get(:hits).to_i
+  @misses  = $redis.get(:misses).to_i
+  @byhits  = Hash[*$redis.zrevrange("by:hits", 0, 10, :with_scores => true)]
+  @bytimes = Hash[*$redis.zrevrange("by:time", 0, 10, :with_scores => true)]
+
+  [@byhits, @bytimes].each do |h|
+    h.each { |k, v| h[k] = { long: $redis.get("short:#{k}"), score: v }  }
+  end
+
   @title = "Stats"
   erb :stats
 end
@@ -39,8 +56,7 @@ post "/" do
     end
   end
 
-  request.path_info = "/#{short}"
-  [201, {}, request.url]
+  [201, {}, shorturl(short)]
 end
 
 get "/:short" do |short|
