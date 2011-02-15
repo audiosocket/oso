@@ -14,7 +14,7 @@ to 1.8 if you feel the need.
 
 If you install the deps in the <tt>Isolate</tt> file you can run
 <tt>rackup</tt> by itself. If you'd like to use Isolate to manage
-deps, <tt>gem install isolate</tt> and run <tt>rake rackup</tt>
+deps, <tt>gem install isolate</tt> and run <tt>rake server</tt>
 instead (it'll call <tt>rackup</tt> from inside the isolated
 environment).
 
@@ -32,12 +32,41 @@ to <tt>/</tt> with a <tt>url</tt> parameter. It'll return a
 You can optionally pass a <tt>life</tt> parameter, which is the
 lifetime of the shortened URL in seconds.
 
+=== From Ruby
+
+If you install the <tt>oso</tt> RubyGem:
+
+    require "oso"
+
+    Oso.shorten "github.com"             # => "http://oso.local/Acf"
+    Oso.shorten "github.com", life: 30   # => "http://oso.local/Ad0"
+
+Set the <tt>OSO_URL</tt> environment variable to control where the
+client looks for the server, or see the RDocs for information on
+creating multiple instances.
+
 == Deploying
 
-Oso is prepped for Heroku. It has an up-to-date <tt>.gems</tt>
-manifest, and it'll use the <tt>REDISTOGO_URL</tt> env var if it
-exists. You're on your own in any other environment, but it's going to
-be easy.
+If you fork it, Oso is already prepped for Heroku. It has an
+up-to-date <tt>.gems</tt> manifest, and it'll use the
+<tt>REDISTOGO_URL</tt> env var if it exists.
+
+If you'd like to use it in your own <tt>config.ru</tt> file via the
+gem, you'll need to provide the server's dependencies yourself. The
+gem doesn't express any runtime dependencies since it's primarily used
+as a client.
+
+Assuming you've provided the server dependencies (see the <tt>env
+:production</tt> section of the <tt>Isolate</tt> file), using the gem
+from Rack is simple:
+
+    require "oso/server"
+
+    set :root, File.expand_path("..", "__FILE__")
+    run Sinatra::Application
+
+Pull requests making Oso a mountable <tt>Sinatra::Base</tt> app are
+most welcome.
 
 == License
 
