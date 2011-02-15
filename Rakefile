@@ -1,7 +1,7 @@
 require "isolate/now"
 require "hoe"
 
-Hoe.plugin :doofus, :git
+Hoe.plugin :doofus, :git, :isolate
 
 Hoe.spec "oso" do
   developer "Audiosocket", "it@audiosocket.com"
