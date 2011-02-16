@@ -50,14 +50,17 @@ class Oso
 
   # Create a short URL for +url+. Pass a <tt>:life</tt> option
   # (integer, in seconds) to control how long the short URL will be
-  # active.
+  # active. Pass a +limit+ option to control how many times the URL
+  # can be hit before it's deactivated.
   #
   # +shorten+ will raise a Timeout::Error if network or server
   # conditions keep +url+ from being shortened in one second.
 
   def shorten url, options = {}
-    params = { url: url }
-    params[:life] = options[:life].to_i if options[:life]
+    params = options.merge url: url
+
+    params[:life]  &&= params[:life].to_i
+    params[:limit] &&= params[:limit].to_i
 
     timeout 1, Oso::Error do
       begin
