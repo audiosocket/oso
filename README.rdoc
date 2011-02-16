@@ -61,8 +61,6 @@ Assuming you've provided the server dependencies (see the <tt>env
 from Rack is simple:
 
     require "oso/server"
-
-    set :root, File.expand_path("..", "__FILE__")
     run Sinatra::Application
 
 Pull requests making Oso a mountable <tt>Sinatra::Base</tt> app are

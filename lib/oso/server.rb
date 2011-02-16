@@ -17,7 +17,7 @@ helpers do
 end
 
 get "/" do
-  IO.read "public/index.html"
+  IO.read "#{settings.public}/index.html"
 end
 
 get "/stats" do
