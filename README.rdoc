@@ -12,11 +12,8 @@ three letters look a bit like our logo.
 We deploy 1.9.2, so Oso expects it. It shouldn't be too hard to port
 to 1.8 if you feel the need.
 
-If you install the deps in the <tt>Isolate</tt> file you can run
-<tt>rackup</tt> by itself. If you'd like to use Isolate to manage
-deps, <tt>gem install isolate</tt> and run <tt>rake server</tt>
-instead (it'll call <tt>rackup</tt> from inside the isolated
-environment).
+If you install the deps in the <tt>.gems</tt> file you can run
+<tt>rackup</tt> by itself.
 
 Oso needs Redis. Set the <tt>OSO_REDIS_URL</tt> environment variable,
 which defaults to <tt>redis://localhost:6379</tt>. All keys are
@@ -60,9 +57,8 @@ gem, you'll need to provide the server's dependencies yourself. The
 gem doesn't express any runtime dependencies since it's primarily used
 as a client.
 
-Assuming you've provided the server dependencies (see the <tt>env
-:production</tt> section of the <tt>Isolate</tt> file), using the gem
-from Rack is simple:
+Assuming you've provided the server dependencies (see the
+<tt>.gems</tt> file), using the gem from Rack is simple:
 
     require "oso/server"
     run Sinatra::Application

@@ -1,6 +1,3 @@
-ENV["ISOLATE_ENV"] = "test"
-
-require "isolate/now"
 require "minitest/autorun"
 
 require "fakeweb"
