@@ -111,3 +111,15 @@ get "/:short" do |short|
 
   redirect long
 end
+
+get "/:short/stats" do |short|
+  nope! unless @long = $redis.get("short:#{short}")
+
+  @short = short
+  @hits  = $redis.zscore("by:hits", short).to_i
+  @limit = $redis.get("short:#{short}:limit").to_i
+  @time  = $redis.zscore("by:time", short).to_i
+
+  @title = "Stats :: #@short"
+  erb :stat
+end
