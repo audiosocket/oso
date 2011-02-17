@@ -54,7 +54,8 @@ get "/stats" do
   @bytimes = Hash[*$redis.zrevrange("by:time", 0, 10, :with_scores => true)]
 
   [@byhits, @bytimes].each do |h|
-    h.each { |k, v| h[k] = { long: $redis.get("short:#{k}"), score: v }  }
+    h.select! { |k, v| $redis.exists "short:#{k}" }
+    h.each    { |k, v| h[k] = { long: $redis.get("short:#{k}"), score: v } }
   end
 
   @title = "Stats"
