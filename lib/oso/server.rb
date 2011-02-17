@@ -36,6 +36,11 @@ helpers do
     end
   end
 
+  def shorten str
+    return str unless str.length > 40
+    str[0, 37] + "..."
+  end
+
   def shorturl short
     request.path_info = "/#{short}"
     request.url

@@ -30,8 +30,8 @@
   <tbody>
     <% @bytimes.each do |short, data| %>
     <tr>
-      <td><%= data[:score] %></td>
-      <td><a href="<%= data[:long] %>"><%= data[:long] %></a></td>
+      <td data-at="<%= data[:score] %>">time</td>
+      <td><a href="<%= data[:long] %>"><%= shorten data[:long] %></a></td>
       <td><a href="<%= shorturl(short) %>"><%= shorturl(short) %></a></td>
     </tr>
     <% end %>
@@ -53,7 +53,7 @@
     <% @byhits.each do |short, data| %>
     <tr>
       <td><%= data[:score] %></td>
-      <td><a href="<%= data[:long] %>"><%= data[:long] %></a></td>
+      <td><a href="<%= data[:long] %>"><%= shorten data[:long] %></a></td>
       <td><a href="<%= shorturl(short) %>"><%= shorturl(short) %></a></td>
     </tr>
     <% end %>
