@@ -10,8 +10,30 @@ $redis = Redis::Namespace.new :oso,
   redis: Redis.new(host: url.host, password: url.password, port: url.port)
 
 helpers do
+  def bad! message
+    halt 412, {}, message
+  end
+
   def nope!
     halt 404, {}, "No luck."
+  end
+
+  def save short, url, limit, life
+    longkey  = "long:#{url}"
+    shortkey = "short:#{short}"
+    limitkey = "#{shortkey}:limit"
+
+    $redis.multi do
+      $redis.set limitkey, limit if limit
+      $redis.set longkey,  short
+      $redis.set shortkey, url
+    end
+
+    if life
+      $redis.expire limitkey, limit if limit
+      $redis.expire longkey,  life
+      $redis.expire shortkey, life
+    end
   end
 
   def shorturl short
@@ -40,31 +62,24 @@ get "/stats" do
 end
 
 post "/" do
-  halt [412, {}, "Missing 'url' param."] unless url = params[:url]
+  bad! "Missing url."   unless url = params[:url]
 
   url = "http://#{url}" unless /^http/i =~ url
 
-  life  = params[:life].to_i  if params[:life]
+  bad! "Malformed url." unless (u = URI.parse url) && /^http/ =~ u.scheme
+
+  life  = params[:life].to_i if params[:life]
   limit = params[:limit].to_i if params[:limit]
+  short = params[:name] if params[:name] && /[-a-z0-9]+/i =~ params[:name]
 
-  unless short = $redis.get("long:#{url}")
-    longkey  = "long:#{url}"
-    short    = $redis.incr(:counter).to_sxg
-    shortkey = "short:#{short}"
-    limitkey = "#{shortkey}:limit"
+  bad! "Name is already taken." if short && $redis.exists("short:#{short}")
 
-    $redis.multi do
-      $redis.set limitkey, limit if limit
-      $redis.set longkey,  short
-      $redis.set shortkey, url
-    end
-
-    if life
-      $redis.expire limitkey, limit if limit
-      $redis.expire longkey,  life
-      $redis.expire shortkey, life
-    end
+  if !short && existing = $redis.get("long:#{url}")
+    halt 201, {}, shorturl(existing)
   end
+
+  short ||= $redis.incr(:counter).to_sxg
+  save short, url, limit, life
 
   [201, {}, shorturl(short)]
 end

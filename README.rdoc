@@ -29,9 +29,13 @@ to <tt>/</tt> with a <tt>url</tt> parameter. It'll return a
 You can optionally pass a <tt>life</tt> parameter, which is the
 lifetime of the shortened URL in seconds.
 
-You can optionally pas a <tt>limit</tt> parameter, which is the number
+You can optionally pass a <tt>limit</tt> parameter, which is the number
 of times you want the shortened URL to work. After the limit is
 reached <tt>404</tt>'s are returned.
+
+You can optionally pass a <tt>name</tt> parameter, which will be used
+instead of generating a token for the shortened URL. Names can only
+contain alphanumerics and dashes.
 
 === From Ruby
 

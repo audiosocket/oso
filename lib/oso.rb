@@ -50,10 +50,11 @@ class Oso
 
   # Create a short URL for +url+. Pass a <tt>:life</tt> option
   # (integer, in seconds) to control how long the short URL will be
-  # active. Pass a +limit+ option to control how many times the URL
-  # can be hit before it's deactivated.
+  # active. Pass a <tt>:limit</tt> option to control how many times
+  # the URL can be hit before it's deactivated. Pass a <tt>:name</tt>
+  # option to explicitly set the shortened URL.
   #
-  # +shorten+ will raise a Timeout::Error if network or server
+  # +shorten+ will raise an Oso::Error if network or server
   # conditions keep +url+ from being shortened in one second.
 
   def shorten url, options = {}
