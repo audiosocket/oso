@@ -58,7 +58,7 @@ class Oso
   # conditions keep +url+ from being shortened in one second.
 
   def shorten url, options = {}
-    params = options.merge url: url
+    params = options.merge :url => url
 
     params[:life]  &&= params[:life].to_i
     params[:limit] &&= params[:limit].to_i

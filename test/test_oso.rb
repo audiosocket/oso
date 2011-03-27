@@ -34,7 +34,7 @@ class TestOso < MiniTest::Unit::TestCase
 
   def test_shorten
     FakeWeb.register_uri :post, "http://example.org/",
-      body: "http://example.org/1", status: 201
+      :body => "http://example.org/1", :status => 201
 
     oso = Oso.new "example.org"
 
@@ -43,7 +43,7 @@ class TestOso < MiniTest::Unit::TestCase
 
   def test_shorten_bad
     FakeWeb.register_uri :post, "http://example.org/",
-      body: "No luck.", status: 404
+      :body => "No luck.", :status => 404
 
     oso = Oso.new "example.org"
 
