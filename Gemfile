@@ -6,6 +6,7 @@ gem "redis-namespace", "0.10.0"
 gem "sinatra",         "1.1.2"
 
 group :development do
+  gem "heroku"
   gem "hoe"
   gem "hoe-doofus"
   gem "hoe-git"
