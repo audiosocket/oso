@@ -1,5 +1,7 @@
-.gems
+.rvmrc
 CHANGELOG.rdoc
+Gemfile
+Gemfile.lock
 Manifest.txt
 README.rdoc
 Rakefile
@@ -9,9 +11,11 @@ lib/oso/public/audiosocket.png
 lib/oso/public/favicon.ico
 lib/oso/public/index.css
 lib/oso/public/index.html
+lib/oso/public/jquery.ago.js
 lib/oso/public/robots.txt
 lib/oso/public/style.css
 lib/oso/server.rb
 lib/oso/views/layout.rhtml
+lib/oso/views/stat.rhtml
 lib/oso/views/stats.rhtml
 test/test_oso.rb
