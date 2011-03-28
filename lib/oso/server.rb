@@ -6,8 +6,10 @@ require "uri"
 url = ENV.values_at("OSO_REDIS_URL", "REDISTOGO_URL").compact.first
 url = URI.parse url || "redis://localhost:6379"
 
-$redis = Redis::Namespace.new :oso,
-  redis: Redis.new(host: url.host, password: url.password, port: url.port)
+$redis = Redis::Namespace.new(:oso,
+                              :redis => Redis.new(:host => url.host,
+                                                  :password => url.password,
+                                                  :port => url.port))
 
 helpers do
   def bad! message
@@ -60,7 +62,7 @@ get "/stats" do
 
   [@byhits, @bytimes].each do |h|
     h.select! { |k, v| $redis.exists "short:#{k}" }
-    h.each    { |k, v| h[k] = { long: $redis.get("short:#{k}"), score: v } }
+    h.each  { |k, v| h[k] = { :long => $redis.get("short:#{k}"), :score => v } }
   end
 
   @title = "Stats"
