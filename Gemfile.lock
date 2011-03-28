@@ -4,6 +4,9 @@ GEM
     fakeweb (1.3.0)
     hoe (2.8.0)
       rake (>= 0.8.7)
+    hoe-doofus (1.0.0)
+    hoe-git (1.3.0)
+      hoe (>= 2.2.0)
     minitest (2.0.2)
     mocha (0.9.12)
     new_base_60 (1.0.3)
@@ -22,7 +25,9 @@ PLATFORMS
 
 DEPENDENCIES
   fakeweb (= 1.3.0)
-  hoe (= 2.8.0)
+  hoe
+  hoe-doofus
+  hoe-git
   minitest (= 2.0.2)
   mocha (= 0.9.12)
   new_base_60 (= 1.0.3)
