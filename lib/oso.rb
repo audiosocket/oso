@@ -30,6 +30,10 @@ class Oso
     instance.shorten(*args)
   end
 
+  def self.shorten! *args
+    instance.shorten!(*args)
+  end
+  
   # A URI. Where does the Oso server live? If unspecified during
   # initialization it'll default to the contents of the
   # <tt>OSO_URL</tt> environment variable. If that's unset, it's
@@ -54,10 +58,10 @@ class Oso
   # the URL can be hit before it's deactivated. Pass a <tt>:name</tt>
   # option to explicitly set the shortened URL.
   #
-  # +shorten+ will raise an Oso::Error if network or server
+  # +shorten!+ will raise an Oso::Error if network or server
   # conditions keep +url+ from being shortened in one second.
-
-  def shorten url, options = {}
+  
+  def shorten! url, options = {}
     params = options.merge :url => url
 
     params[:life]  &&= params[:life].to_i
@@ -80,6 +84,17 @@ class Oso
       when 201 then return res.body
       else raise Oso::Error, "Unsuccessful shorten #{res.code}: #{res.body}"
       end
+    end
+  end
+
+  # +shorten+ will return the original url if an Oso::Error is
+  # encountered during the shortening transaction.
+
+  def shorten url, options = {}
+    begin
+      shorten! url, options
+    rescue Oso::Error
+      return url
     end
   end
 end

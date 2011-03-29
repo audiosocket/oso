@@ -32,6 +32,15 @@ class TestOso < MiniTest::Unit::TestCase
     assert_equal "bar", Oso.shorten("foo")
   end
 
+  def test_shorten!
+    FakeWeb.register_uri :post, "http://example.org/",
+      :body => "http://example.org/1", :status => 201
+
+    oso = Oso.new "example.org"
+
+    assert_equal "http://example.org/1", oso.shorten!("whatever")
+  end
+
   def test_shorten
     FakeWeb.register_uri :post, "http://example.org/",
       :body => "http://example.org/1", :status => 201
@@ -43,12 +52,21 @@ class TestOso < MiniTest::Unit::TestCase
 
   def test_shorten_bad
     FakeWeb.register_uri :post, "http://example.org/",
+      :body => "BAD!", :status => 500
+
+    oso = Oso.new "example.org"
+
+    assert_equal "whatever", oso.shorten("whatever")
+  end
+
+  def test_shorten_bang_bad
+    FakeWeb.register_uri :post, "http://example.org/",
       :body => "No luck.", :status => 404
 
     oso = Oso.new "example.org"
 
     assert_raises Oso::Error do
-      oso.shorten "blah"
+      oso.shorten! "blah"
     end
   end
 end
