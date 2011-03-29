@@ -91,10 +91,6 @@ class Oso
   # encountered during the shortening transaction.
 
   def shorten url, options = {}
-    begin
-      shorten! url, options
-    rescue Oso::Error
-      return url
-    end
+    shorten! url, options rescue url
   end
 end
