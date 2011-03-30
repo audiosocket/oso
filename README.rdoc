@@ -46,6 +46,10 @@ If you install the <tt>oso</tt> RubyGem:
     Oso.shorten "github.com"              # => "http://oso.local/Acf"
     Oso.shorten "github.com", :life => 30 # => "http://oso.local/Ad0"
 
+If <tt>Oso.shorten</tt> doesn't receive a response within one second
+it returns the original, unshortened URL. To raise an error, call
+<tt>Oso.shorten!</tt> instead.
+
 Set the <tt>OSO_URL</tt> environment variable to control where the
 client looks for the server, or see the RDocs for information on
 creating multiple instances.

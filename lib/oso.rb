@@ -30,6 +30,8 @@ class Oso
     instance.shorten(*args)
   end
 
+  # See #shorten! for more information.
+
   def self.shorten! *args
     instance.shorten!(*args)
   end
@@ -87,8 +89,8 @@ class Oso
     end
   end
 
-  # +shorten+ will return the original url if an Oso::Error is
-  # encountered during the shortening transaction.
+  # Create a short URL like #shorten!, but return the original URL if
+  # an error is raised.
 
   def shorten url, options = {}
     shorten! url, options rescue url
