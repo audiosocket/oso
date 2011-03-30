@@ -21,6 +21,12 @@ class Oso
     @instance ||= new
   end
 
+  # :nodoc:
+
+  def self.reset!
+    @instance = nil
+  end
+
   # A static helper if you don't want to create new instances of the
   # Oso class. Set the <tt>OSO_URL</tt> environment variable to
   # control the server location. See +initialize+ for more
