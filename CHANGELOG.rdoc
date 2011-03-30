@@ -1,3 +1,8 @@
+=== 2.0.0 / 2011-03-30
+
+* Return the unshortened URL if Oso#shorten encounters a problem.
+* Add Oso#shorten!, which raises if it encounters a problem.
+
 === 1.0.1 / 2011-03-28
 
 * Support Bundler for development/deployment.
