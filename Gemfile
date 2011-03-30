@@ -1,9 +1,8 @@
 source :rubygems
 
-gem "new_base_60",     "1.0.3"
-gem "rack",            "1.2.1"
+gem "new_base_60",     "1.0.4"
 gem "redis-namespace", "0.10.0"
-gem "sinatra",         "1.1.2"
+gem "sinatra",         "1.2.1"
 
 group :development do
   gem "heroku"
@@ -13,7 +12,7 @@ group :development do
 end
 
 group :test do
-  gem "fakeweb",  "1.3.0"
-  gem "minitest", "2.0.2"
-  gem "mocha",    "0.9.12"
+  gem "fakeweb"
+  gem "minitest"
+  gem "mocha"
 end
