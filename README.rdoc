@@ -35,7 +35,8 @@ reached <tt>404</tt>'s are returned.
 
 You can optionally pass a <tt>name</tt> parameter, which will be used
 instead of generating a token for the shortened URL. Names can only
-contain alphanumerics and dashes.
+contain alphanumerics and dashes. If a name is already taken, you'll
+get a `412` response.
 
 === From Ruby
 
