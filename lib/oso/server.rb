@@ -111,7 +111,7 @@ get "/:short" do |short|
   $redis.zincrby "by:hits", 1, short
   $redis.zadd    "by:time", Time.now.utc.to_i, short
 
-  redirect long
+  redirect long, 301
 end
 
 get "/:short/stats" do |short|
