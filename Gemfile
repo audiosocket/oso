@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "1.9.3"
+ruby "1.9.2"
 
 gem "new_base_60",     "1.0.4"
 gem "redis-namespace", "0.10.0"
