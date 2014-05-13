@@ -24,15 +24,17 @@ helpers do
     halt 404, {}, "No luck."
   end
 
-  def save short, url, limit, life
-    longkey  = "long:#{url}"
-    shortkey = "short:#{short}"
-    limitkey = "#{shortkey}:limit"
+  def save short, url, limit, life, metrics=true
+    longkey    = "long:#{url}"
+    shortkey   = "short:#{short}"
+    metricskey = "metrics:#{short}"
+    limitkey   = "#{shortkey}:limit"
 
     $redis.multi do
       $redis.set limitkey, limit if limit
       $redis.set longkey,  short
       $redis.set shortkey, url
+      $redis.set metricskey, metrics
     end
 
     if life
@@ -80,9 +82,10 @@ post "/" do
 
   bad! "Malformed url." unless (u = URI.parse url) && /^http/ =~ u.scheme
 
-  life  = params[:life].to_i if params[:life]
-  limit = params[:limit].to_i if params[:limit]
-  short = params[:name] if params[:name] && /[-a-z0-9]+/i =~ params[:name]
+  life    = params[:life].to_i if params[:life]
+  limit   = params[:limit].to_i if params[:limit]
+  short   = params[:name] if params[:name] && /[-a-z0-9]+/i =~ params[:name]
+  metrics = params.fetch :metrics, true
 
   bad! "Name is already taken." if short && $redis.exists("short:#{short}")
 
@@ -91,7 +94,7 @@ post "/" do
   end
 
   short ||= $redis.incr(:counter).to_sxg
-  save short, url, limit, life
+  save short, url, limit, life, metrics
 
   [201, {}, shorturl(short)]
 end
@@ -111,10 +114,14 @@ get "/:short" do |short|
     nope!
   end
 
-  $redis.incr    :hits
-  $redis.zincrby "by:hits", 1, short
-  $redis.zadd    "by:time", Time.now.utc.to_i, short
-  $redis.zadd    "#{short}:referrers", 1, request.referrer
+  metrics = $redis.get "metrics:#{short}"
+
+  if metrics.nil? || metrics =~ (/(true|t|yes|y|1)$/i)
+    $redis.incr    :hits
+    $redis.zincrby "by:hits", 1, short
+    $redis.zadd    "by:time", Time.now.utc.to_i, short
+    $redis.zadd    "#{short}:referrers", 1, request.referrer
+  end
 
   redirect long, 301
 end
