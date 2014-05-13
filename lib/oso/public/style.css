@@ -8,30 +8,9 @@ a {
     color: #a00;
 }
 
-a.btn {
-    -webkit-transition : .2s;
-    background         : #ddd;
-    border-radius      : 4px;
-    color              : #333;
-    display            : block;
-    font-size          : 14px;
-    font-weight        : normal;
-    padding            : 4px 6px;
-    text-decoration    : none;
-}
-
-a.btn:hover {
-    background : #333;
-    color      : #eee;
-}
-
-a.btn:active {
-    color: #f00;
-}
-
 body {
     font-family : "Helvetica Neue", sans-serif;
-    width       : 600px;
+    max-width       : 800px;
     margin      : 36px auto;
 }
 
@@ -70,6 +49,11 @@ td, th {
     padding: 3px;
 }
 
+.boxen {
+  margin: 0 auto;
+  width: 600px;
+}
+
 .boxen li {
     background      : #000;
     border-radius   : 8px;
@@ -91,4 +75,8 @@ td, th {
     color     : #eee;
     display   : block;
     font-size : 24px;
+}
+
+.stat p {
+  margin: 24px 0;
 }

@@ -11,6 +11,10 @@ $redis = Redis::Namespace.new(:oso,
                                                   :password => url.password,
                                                   :port => url.port))
 
+configure do
+  set :views, Dir.pwd + "/lib/oso/views"
+end
+
 helpers do
   def bad! message
     halt 412, {}, message
@@ -110,6 +114,7 @@ get "/:short" do |short|
   $redis.incr    :hits
   $redis.zincrby "by:hits", 1, short
   $redis.zadd    "by:time", Time.now.utc.to_i, short
+  $redis.zadd    "#{short}:referrers", 1, request.referrer
 
   redirect long, 301
 end
@@ -121,6 +126,7 @@ get "/:short/stats" do |short|
   @hits  = $redis.zscore("by:hits", short).to_i
   @limit = $redis.get("short:#{short}:limit").to_i
   @time  = $redis.zscore("by:time", short).to_i
+  @referrers = Hash[*$redis.zrevrange("#{short}:referrers", 0, 20, :with_scores => true)]
 
   @title = "Stats :: #@short"
   erb :stat

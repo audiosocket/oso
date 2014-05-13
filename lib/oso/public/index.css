@@ -8,6 +8,15 @@ body {
     text-align  : center;
 }
 
+h1 {
+  margin-bottom: 60px;
+}
+
+h1 a {
+  text-decoration: none;
+  color: black;
+}
+
 input {
     background : #fff;
     border     : 1px solid #000;
@@ -22,6 +31,12 @@ input {
     border-top-left-radius    : 4px;
     padding                   : 6px;
     width                     : 300px;
+}
+
+#name {
+    padding                   : 6px;
+    width                     : 200px;
+    border-left: none;
 }
 
 #shorten {
@@ -52,4 +67,3 @@ input {
     font-size  : 13px;
     margin-top : 6px;
 }
-

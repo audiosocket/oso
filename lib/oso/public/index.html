@@ -2,19 +2,25 @@
 
 <html>
   <head>
-    <title>Oso</title>
+    <title>Audiosocket - Music Licensing - URL Shortener</title>
+    <link href="/components.css" rel="stylesheet" type="text/css">
     <link href="/index.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
+    <h1><a href="http://www.audiosocket.com">Audiosocket</a> URL Shortener</h1>
     <form action="/" method="POST">
       <input id="url" name="url" placeholder="http://example.org"
-             type="text"><input id="shorten" type="submit" value="Shorten">
+             type="text"><input
+        id="name" name="name" placeholder="Pretty name or blank"><input id="shorten" type="submit" value="Shorten">
     </form>
 
     <div id="shortened" style="display:none">
       <input readonly>
       <p>Copy and share this URL.</p>
+      <p>
+        <a class="btn" href="/">Shorten another URL</a>
+      </p>
     </div>
 
     <script type="text/javascript"
@@ -24,9 +30,10 @@
       $(function() {
         $("form").submit(function() {
           var url = $("#url").val()
+          var name = $("#name").val()
 
           if (!/^\s*$/.test(url)) {
-            $.post("/", { url: url }, function(short) {
+            $.post("/", { url: url, name: name }, function(short) {
               $("form").hide()
               $("#shortened").show()
               $("#shortened input").val(short).select()

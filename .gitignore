@@ -1,3 +1,4 @@
 pkg
 tmp
 .idea/
+.rbenv-version

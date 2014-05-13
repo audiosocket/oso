@@ -1,0 +1,21 @@
+a.btn {
+    -webkit-transition : .2s;
+    background         : #ddd;
+    border-radius      : 4px;
+    color              : #333;
+    display            : block;
+    font-size          : 14px;
+    font-weight        : normal;
+    padding            : 4px 6px;
+    text-decoration    : none;
+}
+
+a.btn:hover {
+    background : #333;
+    color      : #eee;
+}
+
+a.btn:active {
+    color: #f00;
+}
+

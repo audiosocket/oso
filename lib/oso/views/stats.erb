@@ -24,6 +24,7 @@
       <th>Last Hit</th>
       <th>URL</th>
       <th>Shortened</th>
+      <th>Stats</th>
     </tr>
   </thead>
 
@@ -33,6 +34,7 @@
       <td data-at="<%= data[:score] %>">time</td>
       <td><a href="<%= data[:long] %>"><%= shorten data[:long] %></a></td>
       <td><a href="<%= shorturl(short) %>"><%= shorturl(short) %></a></td>
+      <td><a href="<%= "#{shorturl(short)}/stats" %>">Details</a></td>
     </tr>
     <% end %>
   </tbody>
@@ -45,6 +47,7 @@
       <th>Hits</th>
       <th>URL</th>
       <th>Shortened</th>
+      <th>Stats</th>
     </tr>
   </thead>
 
@@ -54,6 +57,7 @@
       <td><%= data[:score] %></td>
       <td><a href="<%= data[:long] %>"><%= shorten data[:long] %></a></td>
       <td><a href="<%= shorturl(short) %>"><%= shorturl(short) %></a></td>
+      <td><a href="<%= "#{shorturl(short)}/stats" %>">Details</a></td>
     </tr>
     <% end %>
   </tbody>

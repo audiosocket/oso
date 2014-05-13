@@ -1,3 +1,5 @@
+require "bundler/setup"
+
 # This load path manipulation is unnecessary if you're running Oso
 # from the released gem.
 
