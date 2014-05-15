@@ -120,10 +120,18 @@ get "/:short" do |short|
     $redis.incr    :hits
     $redis.zincrby "by:hits", 1, short
     $redis.zadd    "by:time", Time.now.utc.to_i, short
-    $redis.zadd    "#{short}:referrers", 1, request.referrer
+
+    uri = URI.parse(request.referrer)
+    url = if uri
+      uri.host && !uri.host.empty? ? uri.host : "unknown"
+    else
+      "unknown"
+    end
+
+    $redis.zincrby "#{short}:referrers", 1, url
   end
 
-  redirect long, 301
+  redirect long, 302
 end
 
 get "/:short/stats" do |short|
