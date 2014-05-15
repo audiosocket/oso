@@ -131,7 +131,7 @@ get "/:short" do |short|
     $redis.zincrby "#{short}:referrers", 1, url
   end
 
-  redirect long, 302
+  redirect long, 301
 end
 
 get "/:short/stats" do |short|

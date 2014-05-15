@@ -80,3 +80,9 @@ td, th {
 .stat p {
   margin: 24px 0;
 }
+
+.stat td {
+  max-width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+}
