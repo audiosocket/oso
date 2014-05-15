@@ -24,7 +24,7 @@
     </thead>
     <% Hash[@referrers.sort].each do |url, count| %>
       <tr>
-        <td><%= url %></td>
+        <td><%= url == 't.co' ? "t.co (twitter redirect)" : url %></td>
         <td><%= count %></td>
       </tr>
     <% end %>
