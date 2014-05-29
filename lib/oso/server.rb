@@ -63,8 +63,8 @@ get "/stats" do
   @count   = $redis.get(:counter).to_i
   @hits    = $redis.get(:hits).to_i
   @misses  = $redis.get(:misses).to_i
-  @byhits  = Hash[*$redis.zrevrange("by:hits", 0, 10, :with_scores => true)]
-  @bytimes = Hash[*$redis.zrevrange("by:time", 0, 10, :with_scores => true)]
+  @byhits  = Hash[*$redis.zrevrange("by:hits", 0, 50, :with_scores => true)]
+  @bytimes = Hash[*$redis.zrevrange("by:time", 0, 50, :with_scores => true)]
 
   [@byhits, @bytimes].each do |h|
     h.select! { |k, v| $redis.exists "short:#{k}" }
