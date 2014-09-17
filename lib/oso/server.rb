@@ -21,7 +21,8 @@ helpers do
   end
 
   def nope!
-    halt 404, {}, "No luck."
+    redirect "http://audiosocket.com", 301
+    # halt 404, {}, "No luck."
   end
 
   def save short, url, limit, life, metrics=true
