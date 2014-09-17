@@ -102,7 +102,11 @@ end
 
 get "/:short" do |short|
   long = $redis.get "short:#{short}"
-  $redis.incr(:misses) and nope! unless long
+  unless long
+    $redis.sadd "goneurls", short
+    $redis.incr(:misses)
+    nope!
+  end
 
   limited = $redis.exists("short:#{short}:limit") &&
     $redis.decr("short:#{short}:limit") < 0
