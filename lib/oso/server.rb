@@ -21,7 +21,7 @@ helpers do
   end
 
   def nope!
-    redirect "http://audiosocket.com", 301
+    redirect "http://audiosocket.com", 302
     # halt 404, {}, "No luck."
   end
 
